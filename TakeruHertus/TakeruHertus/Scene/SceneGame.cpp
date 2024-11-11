@@ -3,6 +3,9 @@
 
 SceneGame::SceneGame()
 {
+	m_player = std::make_shared<Player>();
+	m_camera = std::make_shared<Camera>();
+	m_ground = std::make_shared<Ground>();
 }
 
 SceneGame::~SceneGame()
@@ -12,11 +15,18 @@ SceneGame::~SceneGame()
 void SceneGame::Init()
 {
 	m_Idm.get()->Init();
+
+	m_player.get()->Init();
+	m_camera.get()->Init();
+	m_ground.get()->Init();
 }
 
 void SceneGame::Update()
 {
 	m_Idm.get()->Update();
+	m_player.get()->Update();
+	m_camera.get()->Update(m_player.get()->GetPosition());
+	m_ground.get()->Update();
 
 
 	if (CheckHitKey(KEY_INPUT_G))
@@ -28,10 +38,14 @@ void SceneGame::Update()
 void SceneGame::Draw()
 {
 	DebugDraw();
+	m_player.get()->Draw();
+	m_ground.get()->Draw();
 }
 
 void SceneGame::Final()
 {
+	m_player.get()->Final();
+	m_ground.get()->Final();
 }
 
 void SceneGame::DebugDraw()

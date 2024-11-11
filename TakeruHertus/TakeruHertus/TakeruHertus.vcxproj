@@ -139,22 +139,41 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Object\Ground\Ground.cpp" />
+    <ClCompile Include="Object\Camera\Camera.cpp" />
+    <ClCompile Include="Collider\ColliderManager.cpp" />
+    <ClCompile Include="Collider\Capsule\Capsule.cpp" />
+    <ClCompile Include="Collider\AABB\AABB.cpp" />
+    <ClCompile Include="Collider\ColliderBase.cpp" />
     <ClCompile Include="InputDevice\InputDeviceManager.cpp" />
     <ClCompile Include="InputDevice\JoyPad\JoyPad.cpp" />
     <ClCompile Include="InputDevice\KeyBoard\KeyBoard.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Collider\OBB\OBB.cpp" />
+    <ClCompile Include="Object\Character\Player\Player.cpp" />
     <ClCompile Include="Scene\SceneClear.cpp" />
     <ClCompile Include="Scene\SceneResult.cpp" />
     <ClCompile Include="Scene\SceneGame.cpp" />
     <ClCompile Include="Scene\SceneTitle.cpp" />
     <ClCompile Include="Scene\SceneBase.cpp" />
     <ClCompile Include="Scene\SceneManager.cpp" />
+    <ClCompile Include="Collider\Sphere\Sphere.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Object\Ground\Ground.h" />
+    <ClInclude Include="Object\Camera\Camera.h" />
+    <ClInclude Include="Collider\ColliderCommon.h" />
+    <ClInclude Include="Collider\ColliderManager.h" />
+    <ClInclude Include="Collider\Capsule\Capsule.h" />
+    <ClInclude Include="Collider\AABB\AABB.h" />
+    <ClInclude Include="Collider\ColliderBase.h" />
     <ClInclude Include="InputDevice\InputDeviceManager.h" />
     <ClInclude Include="InputDevice\JoyPad\JoyPad.h" />
     <ClInclude Include="InputDevice\KeyBoard\KeyBoard.h" />
+    <ClInclude Include="Collider\OBB\OBB.h" />
+    <ClInclude Include="Object\Character\Player\Player.h" />
     <ClInclude Include="Scene\SceneClear.h" />
+    <ClInclude Include="Scene\SceneGameCommon.h" />
     <ClInclude Include="Scene\SceneResult.h" />
     <ClInclude Include="Scene\SceneGame.h" />
     <ClInclude Include="Scene\SceneTitle.h" />
@@ -162,6 +181,7 @@
     <ClInclude Include="Scene\SceneCommon.h" />
     <ClInclude Include="Scene\SceneManager.h" />
     <ClInclude Include="Scene\SceneType.h" />
+    <ClInclude Include="Collider\Sphere\Sphere.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

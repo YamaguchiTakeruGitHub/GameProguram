@@ -37,6 +37,54 @@
     <Filter Include="ヘッダー ファイル\InputDevice\Keyboard">
       <UniqueIdentifier>{5e6d563e-e18e-490a-96a4-3d2f8ed99975}</UniqueIdentifier>
     </Filter>
+    <Filter Include="ソース ファイル\Collider">
+      <UniqueIdentifier>{bdf131c6-27cb-4561-b9e5-a78d200cc152}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Collider\AABB">
+      <UniqueIdentifier>{222f71ac-e54f-4423-95c7-bc6d5bdf42f1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Collider\OBB">
+      <UniqueIdentifier>{03b2ddcd-121b-4651-9d27-e71154789b51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Collider\Capsule">
+      <UniqueIdentifier>{fab5c84d-39f1-4e74-96db-962ab4f27405}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Collider\Sphere">
+      <UniqueIdentifier>{cb643a95-7e8f-4b98-9162-75958f16a59d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Object">
+      <UniqueIdentifier>{b52cd487-611e-4c82-abe8-af3e0b4fcba3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Object\Player">
+      <UniqueIdentifier>{8460d576-ff38-407d-b4f0-924a544a01e0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\Object\Camera">
+      <UniqueIdentifier>{00ad9fbd-c013-4a0d-b264-c4e17cdf3407}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Collider">
+      <UniqueIdentifier>{4d2d6223-e63a-485b-ac6b-8ae30145c5fd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Collider\AABB">
+      <UniqueIdentifier>{d0664719-b922-4811-8d18-a928027f6375}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Collider\OBB">
+      <UniqueIdentifier>{0e61da77-88b2-4975-a7d7-275dda9e500b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Collider\Sphere">
+      <UniqueIdentifier>{1f5bf38b-b294-4011-a1dd-dc1405dd3821}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Collider\Capsule">
+      <UniqueIdentifier>{0a98a622-4d2d-48d1-bad9-7f2ebaeef8c8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Object">
+      <UniqueIdentifier>{96f91247-5c5e-41da-863b-b3672c176417}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Object\Player">
+      <UniqueIdentifier>{4ccd2c16-f104-4bf6-b9a1-6b3527704a33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Object\Camera">
+      <UniqueIdentifier>{827b475e-5e82-4787-a9ed-d1e357cb3c1f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="main.cpp">
@@ -68,6 +116,33 @@
     </ClCompile>
     <ClCompile Include="InputDevice\JoyPad\JoyPad.cpp">
       <Filter>ソース ファイル\InputDevice\JoyPad</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\ColliderManager.cpp">
+      <Filter>ソース ファイル\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\ColliderBase.cpp">
+      <Filter>ソース ファイル\Collider</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\AABB\AABB.cpp">
+      <Filter>ソース ファイル\Collider\AABB</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\OBB\OBB.cpp">
+      <Filter>ソース ファイル\Collider\OBB</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\Capsule\Capsule.cpp">
+      <Filter>ソース ファイル\Collider\Capsule</Filter>
+    </ClCompile>
+    <ClCompile Include="Collider\Sphere\Sphere.cpp">
+      <Filter>ソース ファイル\Collider\Sphere</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Camera\Camera.cpp">
+      <Filter>ソース ファイル\Object\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Character\Player\Player.cpp">
+      <Filter>ソース ファイル\Object\Player</Filter>
+    </ClCompile>
+    <ClCompile Include="Object\Ground\Ground.cpp">
+      <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -103,6 +178,39 @@
     </ClInclude>
     <ClInclude Include="InputDevice\KeyBoard\KeyBoard.h">
       <Filter>ヘッダー ファイル\InputDevice\Keyboard</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider\ColliderBase.h">
+      <Filter>ヘッダー ファイル\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider\ColliderCommon.h">
+      <Filter>ヘッダー ファイル\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider\ColliderManager.h">
+      <Filter>ヘッダー ファイル\Collider</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneGameCommon.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider\AABB\AABB.h">
+      <Filter>ヘッダー ファイル\Collider\AABB</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider\OBB\OBB.h">
+      <Filter>ヘッダー ファイル\Collider\OBB</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider\Sphere\Sphere.h">
+      <Filter>ヘッダー ファイル\Collider\Sphere</Filter>
+    </ClInclude>
+    <ClInclude Include="Collider\Capsule\Capsule.h">
+      <Filter>ヘッダー ファイル\Collider\Capsule</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Camera\Camera.h">
+      <Filter>ヘッダー ファイル\Object\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Character\Player\Player.h">
+      <Filter>ヘッダー ファイル\Object\Player</Filter>
+    </ClInclude>
+    <ClInclude Include="Object\Ground\Ground.h">
+      <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
