@@ -1,0 +1,22 @@
+﻿  InputDeviceManager.cpp
+F:\就活用ファイル\TakeruHertus\プロジェクトに追加すべきファイル_VC用\DxLib.h(3344,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  JoyPad.cpp
+F:\就活用ファイル\TakeruHertus\プロジェクトに追加すべきファイル_VC用\DxLib.h(3344,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  KeyBoard.cpp
+  main.cpp
+F:\就活用ファイル\TakeruHertus\プロジェクトに追加すべきファイル_VC用\DxLib.h(3344,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+F:\就活用ファイル\TakeruHertus\TakeruHertus\main.cpp(240,62): warning C4267: '引数': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
+  SceneClear.cpp
+F:\就活用ファイル\TakeruHertus\プロジェクトに追加すべきファイル_VC用\DxLib.h(3344,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  SceneResult.cpp
+F:\就活用ファイル\TakeruHertus\プロジェクトに追加すべきファイル_VC用\DxLib.h(3344,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  SceneGame.cpp
+F:\就活用ファイル\TakeruHertus\プロジェクトに追加すべきファイル_VC用\DxLib.h(3344,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  SceneTitle.cpp
+F:\就活用ファイル\TakeruHertus\プロジェクトに追加すべきファイル_VC用\DxLib.h(3344,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  SceneBase.cpp
+F:\就活用ファイル\TakeruHertus\プロジェクトに追加すべきファイル_VC用\DxLib.h(3344,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  SceneManager.cpp
+F:\就活用ファイル\TakeruHertus\プロジェクトに追加すべきファイル_VC用\DxLib.h(3344,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
+  コードを生成中...
+  TakeruHertus.vcxproj -> F:\就活用ファイル\TakeruHertus\x64\Debug\TakeruHertus.exe

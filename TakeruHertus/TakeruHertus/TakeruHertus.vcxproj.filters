@@ -1,0 +1,108 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="ソース ファイル">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="ヘッダー ファイル">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="リソース ファイル">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="ソース ファイル\Scene">
+      <UniqueIdentifier>{c15789d2-2360-4ec5-82fa-b9f39d484971}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\Scene">
+      <UniqueIdentifier>{fde0f12c-6b30-44bb-84f6-9c5940014abf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\InputDevice">
+      <UniqueIdentifier>{b3d56316-4dfe-4b16-9ddb-cabe0e32088e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\InputDevice\KeyBoard">
+      <UniqueIdentifier>{7bcca114-1507-4732-abd5-710001fc3eed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ソース ファイル\InputDevice\JoyPad">
+      <UniqueIdentifier>{72703cc3-f6d9-490f-bbc3-629b889ae2ae}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\InputDevice">
+      <UniqueIdentifier>{0e9af93d-54f6-49e9-b380-7f8de2f4bcd0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\InputDevice\JoyPad">
+      <UniqueIdentifier>{70eb8af2-ef63-4a1e-b3b3-ca6d47d67371}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="ヘッダー ファイル\InputDevice\Keyboard">
+      <UniqueIdentifier>{5e6d563e-e18e-490a-96a4-3d2f8ed99975}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="main.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneBase.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneClear.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneGame.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneManager.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneResult.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Scene\SceneTitle.cpp">
+      <Filter>ソース ファイル\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="InputDevice\InputDeviceManager.cpp">
+      <Filter>ソース ファイル\InputDevice</Filter>
+    </ClCompile>
+    <ClCompile Include="InputDevice\KeyBoard\KeyBoard.cpp">
+      <Filter>ソース ファイル\InputDevice\KeyBoard</Filter>
+    </ClCompile>
+    <ClCompile Include="InputDevice\JoyPad\JoyPad.cpp">
+      <Filter>ソース ファイル\InputDevice\JoyPad</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Scene\SceneBase.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneClear.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneCommon.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneGame.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneManager.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneResult.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneTitle.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="Scene\SceneType.h">
+      <Filter>ヘッダー ファイル\Scene</Filter>
+    </ClInclude>
+    <ClInclude Include="InputDevice\InputDeviceManager.h">
+      <Filter>ヘッダー ファイル\InputDevice</Filter>
+    </ClInclude>
+    <ClInclude Include="InputDevice\JoyPad\JoyPad.h">
+      <Filter>ヘッダー ファイル\InputDevice\JoyPad</Filter>
+    </ClInclude>
+    <ClInclude Include="InputDevice\KeyBoard\KeyBoard.h">
+      <Filter>ヘッダー ファイル\InputDevice\Keyboard</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
