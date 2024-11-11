@@ -1,7 +1,9 @@
 #pragma once
 #include <DxLib.h>
-#include "../../../Collider/Capsule/Capsule.h"
 #include <memory>
+#include <string>
+//#include "../../LibCom/CSVLib/CSVLib.h"
+
 
 /// <summary>
 /// プレイヤークラス
@@ -12,6 +14,9 @@ public:
 	Player();
 	~Player();
 
+	//void loadData(const std::string& _filename);
+
+
 	void Init();
 	void Update();
 	void Draw();
@@ -20,7 +25,7 @@ public:
 	void SetPosition(const VECTOR& _position) { this->m_position = _position; }
 	VECTOR GetPosition() const { return  this->m_position; }
 
-
+	
 
 private:
 
@@ -39,6 +44,7 @@ private:
 	//カプセルの一番下
 	VECTOR m_end;
 
+	//std::shared_ptr<CSVLib> m_csvLib;
 
 };
 

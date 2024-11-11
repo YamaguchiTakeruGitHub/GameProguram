@@ -117,24 +117,6 @@
     <ClCompile Include="InputDevice\JoyPad\JoyPad.cpp">
       <Filter>ソース ファイル\InputDevice\JoyPad</Filter>
     </ClCompile>
-    <ClCompile Include="Collider\ColliderManager.cpp">
-      <Filter>ソース ファイル\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="Collider\ColliderBase.cpp">
-      <Filter>ソース ファイル\Collider</Filter>
-    </ClCompile>
-    <ClCompile Include="Collider\AABB\AABB.cpp">
-      <Filter>ソース ファイル\Collider\AABB</Filter>
-    </ClCompile>
-    <ClCompile Include="Collider\OBB\OBB.cpp">
-      <Filter>ソース ファイル\Collider\OBB</Filter>
-    </ClCompile>
-    <ClCompile Include="Collider\Capsule\Capsule.cpp">
-      <Filter>ソース ファイル\Collider\Capsule</Filter>
-    </ClCompile>
-    <ClCompile Include="Collider\Sphere\Sphere.cpp">
-      <Filter>ソース ファイル\Collider\Sphere</Filter>
-    </ClCompile>
     <ClCompile Include="Object\Camera\Camera.cpp">
       <Filter>ソース ファイル\Object\Camera</Filter>
     </ClCompile>
@@ -142,6 +124,12 @@
       <Filter>ソース ファイル\Object\Player</Filter>
     </ClCompile>
     <ClCompile Include="Object\Ground\Ground.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="CSVLib\CSVLib.cpp">
+      <Filter>ソース ファイル</Filter>
+    </ClCompile>
+    <ClCompile Include="AnimationLib.cpp">
       <Filter>ソース ファイル</Filter>
     </ClCompile>
   </ItemGroup>
@@ -179,29 +167,8 @@
     <ClInclude Include="InputDevice\KeyBoard\KeyBoard.h">
       <Filter>ヘッダー ファイル\InputDevice\Keyboard</Filter>
     </ClInclude>
-    <ClInclude Include="Collider\ColliderBase.h">
-      <Filter>ヘッダー ファイル\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="Collider\ColliderCommon.h">
-      <Filter>ヘッダー ファイル\Collider</Filter>
-    </ClInclude>
-    <ClInclude Include="Collider\ColliderManager.h">
-      <Filter>ヘッダー ファイル\Collider</Filter>
-    </ClInclude>
     <ClInclude Include="Scene\SceneGameCommon.h">
       <Filter>ヘッダー ファイル\Scene</Filter>
-    </ClInclude>
-    <ClInclude Include="Collider\AABB\AABB.h">
-      <Filter>ヘッダー ファイル\Collider\AABB</Filter>
-    </ClInclude>
-    <ClInclude Include="Collider\OBB\OBB.h">
-      <Filter>ヘッダー ファイル\Collider\OBB</Filter>
-    </ClInclude>
-    <ClInclude Include="Collider\Sphere\Sphere.h">
-      <Filter>ヘッダー ファイル\Collider\Sphere</Filter>
-    </ClInclude>
-    <ClInclude Include="Collider\Capsule\Capsule.h">
-      <Filter>ヘッダー ファイル\Collider\Capsule</Filter>
     </ClInclude>
     <ClInclude Include="Object\Camera\Camera.h">
       <Filter>ヘッダー ファイル\Object\Camera</Filter>
@@ -210,6 +177,12 @@
       <Filter>ヘッダー ファイル\Object\Player</Filter>
     </ClInclude>
     <ClInclude Include="Object\Ground\Ground.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="CSVLib\CSVLib.h">
+      <Filter>ヘッダー ファイル</Filter>
+    </ClInclude>
+    <ClInclude Include="AnimationLib.h">
       <Filter>ヘッダー ファイル</Filter>
     </ClInclude>
   </ItemGroup>
