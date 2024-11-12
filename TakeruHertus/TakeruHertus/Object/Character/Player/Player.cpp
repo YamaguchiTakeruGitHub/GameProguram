@@ -131,24 +131,30 @@ void Player::Update(float _cHAngle, float  _cVAngle, float _SinParam, float _Cos
 
 	if (Left)
 	{
+		targetRotationY = DX_PI_F / 2;
 		m_angle = 90.0f - _cHAngle;
 		m_direction.x = 1.0f;
 		isMove = true;
 	}
 	if (Right)
 	{
+		targetRotationY = DX_PI_F * 3 / 2;
 		m_angle = -90.0f - _cHAngle;
 		m_direction.x = -1.0f;
 		isMove = true;
 	}
 	if (Up)
 	{
+		targetRotationY = 0.0f;
+
 		m_angle = 0.0f - _cHAngle;
 		m_direction.z = 1.0f;
 		isMove = true;
 	}
 	if (Down)
 	{
+		targetRotationY = DX_PI_F;
+
 		m_angle = 180.0f - _cHAngle;
 		m_direction.z = -1.0f;
 		isMove = true;
@@ -164,14 +170,16 @@ void Player::Update(float _cHAngle, float  _cVAngle, float _SinParam, float _Cos
 	}
 
 	
+	float angleDifference = NormalizeAngle(targetRotationY - rotationY);
 
+	float rotateionSpeed = 0.07f;
+	rotationY += angleDifference * rotateionSpeed;
 
-	//targetDirection.x = sin(m_angle);
-	//targetDirection.z = cos(m_angle);
+	targetDirection.x = sin(rotationY);
+	targetDirection.z = cos(rotationY);
 
-	//targetPos = VAdd(m_position, VScale(targetDirection, 20.0f));
+	targetPos = VAdd(m_position, VScale(targetDirection, 20.0f));
 
-	//
 
 
 	if (m_direction.x > 0.0f ||
@@ -203,7 +211,8 @@ void Player::Update(float _cHAngle, float  _cVAngle, float _SinParam, float _Cos
 
 	SetFrame();
 	MV1SetPosition(m_modelHandle, m_position);
-	MV1SetRotationXYZ(m_modelHandle, VGet(0.0f, /*NormalizeAngle(m_angle)*/m_angle / 180.0f * DX_PI_F, 0.0f));
+	MV1SetRotationXYZ(m_modelHandle, VGet(0.0f, m_angle / 180.0f * DX_PI_F, 0.0f));
+	/*MV1SetRotationXYZ(m_modelHandle, VGet(m_angle,m_angle, m_angle));*/
 	MV1SetScale(m_modelHandle, m_scale);
 }
 
