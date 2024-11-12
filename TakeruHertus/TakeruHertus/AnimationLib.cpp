@@ -15,7 +15,7 @@ AnimationLib::~AnimationLib()
 
 void AnimationLib::LoadAnimation(const std::string& _animName, int _modelHandle, const std::string& _animFilePath)
 {
-	int animHandle = MV1AttachAnim(_modelHandle,)
+	//int animHandle = MV1AttachAnim(_modelHandle,)
 }
 
 void AnimationLib::PlayAnimation(const std::string& _animName, bool _loop)

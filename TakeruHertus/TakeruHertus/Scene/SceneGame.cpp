@@ -24,7 +24,7 @@ void SceneGame::Init()
 void SceneGame::Update()
 {
 	m_Idm.get()->Update();
-	m_player.get()->Update();
+	m_player.get()->Update(m_camera.get()->GetHAngle(), m_camera.get()->GetVAngle(), m_camera.get()->GetSinParam(), m_camera.get()->GetCosParam());
 	m_camera.get()->Update(m_player.get()->GetPosition());
 	m_ground.get()->Update();
 

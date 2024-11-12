@@ -1,13 +1,43 @@
 #include "Player.h"
 
+
 Player::Player()
-	: m_position	(VGet(0.0f, 0.0f, 0.0f))
-	, m_modelHandle (MV1LoadModel(""))
+	: m_position	(VGet(0.0f, 100.0f, 0.0f))
+	, m_direction	(VGet(0.0f, 0.0f, 0.0f))
+	, m_velocity	(VGet(0.0f, 0.0f, 0.0f))
+	, m_frame		()
+	, m_modelHandle (MV1LoadModel("../Asset/3D/Character/Player/Player.mv1"))
+	, m_scale		(VGet(0.1f, 0.1f, 0.1f))
 	, m_radius		(5.0f)
 	, m_start		(VAdd(m_position, VGet(0.0f, 10.0f, 0.0f)))
 	, m_end			(VSub(m_position, VGet(0.0f, 10.0f, 0.0f)))
+	, isMove		(false)
+	, speed			(2.0f)
+	, m_angle		(0.0f)
+	, tempMoveVector(VGet(0.0f, 0.0f, 0.0f))
+	, targetRotationY(0.0f)
+	, targetDirection(VGet(0,0,0))
+	, targetPos(VGet(0,0,0))
+	, rotationY(0.0f)
+	
 {
 	//m_csvLib = std::make_shared<CSVLib>();
+	m_Idm = std::make_shared<InputDeviceManager>();
+	m_camera = std::make_shared<Camera>();
+	
+	m_frame.leftHand	 = VGet(0.0f, 0.0f, 0.0f);	//¶Žè
+	m_frame.rightHand	 = VGet(0.0f, 0.0f, 0.0f);	//‰EŽè
+	m_frame.head		 = VGet(0.0f, 0.0f, 0.0f);		//“ª
+	m_frame.rightfeet	 = VGet(0.0f, 0.0f, 0.0f);	//‰E‘«
+	m_frame.leftfeet	 = VGet(0.0f, 0.0f, 0.0f);	//¶‘«
+	m_frame.crotch		 = VGet(0.0f, 0.0f, 0.0f);		//ŒÒ
+
+	m_frame.rightElbow = MV1GetFramePosition(m_modelHandle, 54);	//‰E•I
+	m_frame.rightShoulder = MV1GetFramePosition(m_modelHandle, 52);//‰EŒ¨
+	m_frame.leftElbow = MV1GetFramePosition(m_modelHandle, 20);	//¶•I
+	m_frame.leftShoulder = MV1GetFramePosition(m_modelHandle, 18);//¶Œ¨
+	m_frame.rightKnees = MV1GetFramePosition(m_modelHandle, 94);	//‰E•G
+	m_frame.leftKnees = MV1GetFramePosition(m_modelHandle, 87);	//¶•G
 }
 
 Player::~Player()
@@ -42,27 +72,197 @@ Player::~Player()
 
 void Player::Init()
 {
+	m_Idm.get()->Init();
 
-	m_position = VGet(0.0f, 0.0f, 0.0f);
-	m_modelHandle = MV1LoadModel("");
+	isMove = false;
+	speed = 2.0f;
+	m_angle = 0.0f;
+	tempMoveVector = VGet(0.0f, 0.0f, 0.0f);
+
+	m_position = VGet(0.0f, 100.0f, 0.0f);
+	m_direction = VGet(0.0f, 0.0f, 0.0f);
+	m_velocity = VGet(0.0f, 0.0f, 0.0f);
+
+	m_modelHandle = MV1LoadModel("../Asset/3D/Character/Player/Player.mv1");
+	m_scale = VGet(0.1f, 0.1f, 0.1f);
 	m_radius = 5.0f;
 	m_start = VAdd(m_position, VGet(0.0f, 13.0f, 0.0f));
 	m_end = VSub(m_position, VGet(0.0f, 13.0f, 0.0f));
 
+	m_frame.leftHand	 = MV1GetFramePosition(m_modelHandle, 55);	//¶Žè
+	m_frame.rightHand	 = MV1GetFramePosition(m_modelHandle, 21);	//‰EŽè
+	m_frame.head		 = MV1GetFramePosition(m_modelHandle, 9);	//“ª
+	m_frame.rightfeet	 = MV1GetFramePosition(m_modelHandle, 95);	//‰E‘«
+	m_frame.leftfeet	 = MV1GetFramePosition(m_modelHandle, 88);	//¶‘«
+	m_frame.crotch		 = MV1GetFramePosition(m_modelHandle, 3);	//ŒÒ
+
+	m_frame.rightElbow = MV1GetFramePosition(m_modelHandle, 54);	//‰E•I
+	m_frame.rightShoulder = MV1GetFramePosition(m_modelHandle, 52);//‰EŒ¨
+	m_frame.leftElbow = MV1GetFramePosition(m_modelHandle, 20);	//¶•I
+	m_frame.leftShoulder = MV1GetFramePosition(m_modelHandle, 18);//¶Œ¨
+	m_frame.rightKnees = MV1GetFramePosition(m_modelHandle, 94);	//‰E•G
+	m_frame.leftKnees = MV1GetFramePosition(m_modelHandle, 87);	//¶•G
+
+	targetRotationY = 0.0f;
+	targetDirection = VGet(0, 0, 0);
+	targetPos = VGet(0, 0, 0);
+	rotationY = 0.0f;
+
 	//loadData("../GameData/PlayerData.csv");
 }
 
-void Player::Update()
+void Player::Update(float _cHAngle, float  _cVAngle, float _SinParam, float _CosParam)
 {
+	m_Idm.get()->Update();
+
+	m_direction = VGet(0.0f, 0.0f, 0.0f);
+	m_velocity = VGet(0.0f, 0.0f, 0.0f);
+	isMove = false;
+
+
+	//¶ƒXƒeƒBƒbƒN‚Ì¢Š«
+	float leftStickX = m_Idm.get()->joyPad->GetLeftStickX();
+	float leftStickY = m_Idm.get()->joyPad->GetLeftStickY();
+
+	bool Left = leftStickX != 0 && leftStickX >= -0.030519f && leftStickX <= 0.0f;
+	bool Right = leftStickX != 0 && leftStickX <= 0.030519f && leftStickX >= 0.0f;
+	bool Up = leftStickY != 0 && leftStickY <= 0.030519f && leftStickY >= 0.0f;
+	bool Down = leftStickY != 0 && leftStickY >= -0.030519 && leftStickY <= 0.0f;
+
+	if (Left)
+	{
+		m_angle = 90.0f - _cHAngle;
+		m_direction.x = 1.0f;
+		isMove = true;
+	}
+	if (Right)
+	{
+		m_angle = -90.0f - _cHAngle;
+		m_direction.x = -1.0f;
+		isMove = true;
+	}
+	if (Up)
+	{
+		m_angle = 0.0f - _cHAngle;
+		m_direction.z = 1.0f;
+		isMove = true;
+	}
+	if (Down)
+	{
+		m_angle = 180.0f - _cHAngle;
+		m_direction.z = -1.0f;
+		isMove = true;
+	}
+
+	if (m_position.y <= 20.0f)
+	{
+		m_position.y = 20.0f;
+	}
+	else
+	{
+		m_position.y--;
+	}
+
+	
+
+
+	targetDirection.x = sin(m_angle);
+	targetDirection.z = cos(m_angle);
+
+	targetPos = VAdd(m_position, VScale(targetDirection, 20.0f));
+
+	
+
+
+	if (m_direction.x > 0.0f ||
+		m_direction.z > 0.0f ||
+		m_direction.x < 0.0f ||
+		m_direction.z < 0.0f)
+	{
+		m_direction = VNorm(m_direction);
+	}
+
+
+	if (isMove == true)
+	{
+		m_velocity = VGet(m_direction.x * speed, 0.0f, m_direction.z * speed);
+
+		_SinParam = sin(_cHAngle / 180.0f * DX_PI_F);
+		_CosParam = cos(_cHAngle / 180.0f * DX_PI_F);
+		tempMoveVector.x = m_velocity.x * _CosParam - m_velocity.z * _SinParam;
+		tempMoveVector.y = 0.0f;
+		tempMoveVector.z = m_velocity.x * _SinParam + m_velocity.z * _CosParam;
+
+		m_position = VAdd(m_position, tempMoveVector);
+
+
+		//m_position = VAdd(m_velocity, m_position);
+	}
+
+
+
+	SetFrame();
 	MV1SetPosition(m_modelHandle, m_position);
+	MV1SetRotationXYZ(m_modelHandle, VGet(0.0f, /*NormalizeAngle(m_angle)*/m_angle / 180.0f * DX_PI_F, 0.0f));
+	MV1SetScale(m_modelHandle, m_scale);
 }
 
 void Player::Draw()
 {
-	DrawCapsule3D(m_start, m_end, m_radius, 5, 0xffffff, 0xffffff, false);
+	MV1DrawModel(m_modelHandle);
+	DebugDraw();
 }
 
 void Player::Final()
 {
 	MV1DeleteModel(m_modelHandle);
+}
+
+void Player::SetFrame()
+{
+	m_frame.head = MV1GetFramePosition(m_modelHandle, 9);	//“ª
+	m_frame.leftHand = MV1GetFramePosition(m_modelHandle, 55);	//¶Žè
+	m_frame.rightHand = MV1GetFramePosition(m_modelHandle, 21);	//‰EŽè
+	m_frame.rightElbow = MV1GetFramePosition(m_modelHandle, 54);	//‰E•I
+	m_frame.rightShoulder = MV1GetFramePosition(m_modelHandle, 52);//‰EŒ¨
+	m_frame.leftElbow = MV1GetFramePosition(m_modelHandle, 20);	//¶•I
+	m_frame.leftShoulder = MV1GetFramePosition(m_modelHandle, 18);//¶Œ¨
+	m_frame.rightKnees = MV1GetFramePosition(m_modelHandle, 94);	//‰E•G
+	m_frame.leftKnees = MV1GetFramePosition(m_modelHandle, 87);	//¶•G
+	m_frame.rightfeet = MV1GetFramePosition(m_modelHandle, 95);	//‰E‘«
+	m_frame.leftfeet = MV1GetFramePosition(m_modelHandle, 88);	//¶‘«
+	m_frame.crotch = MV1GetFramePosition(m_modelHandle, 3);	//ŒÒ
+}
+
+float Player::NormalizeAngle(float _angle)
+{
+	while (_angle > DX_PI_F) _angle -= DX_PI_F * 2;
+	while (_angle < -DX_PI_F) _angle += DX_PI_F * 2;
+	
+	return _angle;
+}
+
+
+void Player::DebugDraw()
+{
+#ifdef _DEBUG
+	DrawLine3D(targetPos, m_position, 0x00ff00);
+
+	DrawCapsule3D(m_start, m_end, m_radius, 5, 0xffffff, 0xffffff, false);
+
+	DrawSphere3D(m_frame.leftfeet, 4, 5, 0xffffff, 0xffffff, false);
+	DrawSphere3D(m_frame.rightfeet, 4, 5, 0xffffff, 0xffffff, false);
+	DrawSphere3D(m_frame.leftHand, 4, 5, 0xffffff, 0xffffff, false);
+	DrawSphere3D(m_frame.rightHand, 4, 5, 0xffffff, 0xffffff, false);
+	DrawSphere3D(m_frame.crotch, 4, 5, 0xffffff, 0xffffff, false);
+	DrawSphere3D(m_frame.leftShoulder, 4, 5, 0xffffff, 0xffffff, false);
+	DrawSphere3D(m_frame.rightShoulder, 4, 5, 0xffffff, 0xffffff, false);
+	DrawSphere3D(m_frame.leftElbow, 4, 5, 0xffffff, 0xffffff, false);
+	DrawSphere3D(m_frame.rightElbow, 4, 5, 0xffffff, 0xffffff, false);
+	DrawSphere3D(m_frame.leftKnees, 4, 5, 0xffffff, 0xffffff, false);
+	DrawSphere3D(m_frame.rightKnees, 4, 5, 0xffffff, 0xffffff, false);
+
+
+#endif // _DEBUG
+
 }
