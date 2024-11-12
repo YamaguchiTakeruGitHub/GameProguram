@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClCompile Include="AnimationLib.cpp" />
     <ClCompile Include="CSVLib\CSVLib.cpp" />
+    <ClCompile Include="DebugWindow\DebugWindow.cpp" />
     <ClCompile Include="Object\Ground\Ground.cpp" />
     <ClCompile Include="Object\Camera\Camera.cpp" />
     <ClCompile Include="InputDevice\InputDeviceManager.cpp" />
@@ -158,6 +159,7 @@
   <ItemGroup>
     <ClInclude Include="AnimationLib.h" />
     <ClInclude Include="CSVLib\CSVLib.h" />
+    <ClInclude Include="DebugWindow\DebugWindow.h" />
     <ClInclude Include="Object\Ground\Ground.h" />
     <ClInclude Include="Object\Camera\Camera.h" />
     <ClInclude Include="InputDevice\InputDeviceManager.h" />

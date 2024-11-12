@@ -4,6 +4,7 @@
 #include <mutex>
 #include <string>
 #include <vector>
+
 // デバッグ用のテキストリスト
 std::vector<std::string> debugTexts = { "Initial Debug Info" };
 std::mutex debugTextMutex;
@@ -149,6 +150,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         UpdateDebugInfo(2, "Player Position: (" + std::to_string(position.x) + ", " + std::to_string(position.y) + ", " + std::to_string(position.z) + ")");
         UpdateDebugInfo(3, "Player Count: (" + std::to_string(count.x) + ", " + std::to_string(count.y) + ", " + std::to_string(count.z) + ")");
 
+        sceneManager.DebugDraw();
        
 #endif
         // 画面のフリップ

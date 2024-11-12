@@ -166,12 +166,12 @@ void Player::Update(float _cHAngle, float  _cVAngle, float _SinParam, float _Cos
 	
 
 
-	targetDirection.x = sin(m_angle);
-	targetDirection.z = cos(m_angle);
+	//targetDirection.x = sin(m_angle);
+	//targetDirection.z = cos(m_angle);
 
-	targetPos = VAdd(m_position, VScale(targetDirection, 20.0f));
+	//targetPos = VAdd(m_position, VScale(targetDirection, 20.0f));
 
-	
+	//
 
 
 	if (m_direction.x > 0.0f ||

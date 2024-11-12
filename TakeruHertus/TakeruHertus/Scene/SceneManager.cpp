@@ -58,3 +58,8 @@ void SceneManager::Final()
 {
 	m_currentScene->Final();
 }
+
+void SceneManager::DebugDraw()
+{
+	m_currentScene->DebugDraw();
+}

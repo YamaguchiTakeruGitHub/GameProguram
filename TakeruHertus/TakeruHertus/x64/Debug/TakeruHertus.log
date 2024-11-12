@@ -1,7 +1,4 @@
-﻿  Player.cpp
+﻿  main.cpp
 C:\Users\fko2347069\Takeru\GameProguram\GameProguram\TakeruHertus\プロジェクトに追加すべきファイル_VC用\DxLib.h(3344,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-C:\Users\fko2347069\Takeru\GameProguram\GameProguram\TakeruHertus\TakeruHertus\Object\Character\Player\Player.cpp(169,25): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2347069\Takeru\GameProguram\GameProguram\TakeruHertus\TakeruHertus\Object\Character\Player\Player.cpp(170,25): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2347069\Takeru\GameProguram\GameProguram\TakeruHertus\TakeruHertus\Object\Character\Player\Player.cpp(190,18): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
-C:\Users\fko2347069\Takeru\GameProguram\GameProguram\TakeruHertus\TakeruHertus\Object\Character\Player\Player.cpp(191,18): warning C4244: '=': 'double' から 'float' への変換です。データが失われる可能性があります。
+C:\Users\fko2347069\Takeru\GameProguram\GameProguram\TakeruHertus\TakeruHertus\main.cpp(49,62): warning C4267: '引数': 'size_t' から 'int' に変換しました。データが失われているかもしれません。
   TakeruHertus.vcxproj -> C:\Users\fko2347069\Takeru\GameProguram\GameProguram\TakeruHertus\x64\Debug\TakeruHertus.exe

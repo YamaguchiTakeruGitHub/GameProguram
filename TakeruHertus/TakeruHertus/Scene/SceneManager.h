@@ -14,6 +14,8 @@ public:
 	void Draw();
 	void Final();
 
+	void DebugDraw();
+
 	static SceneManager& GetInstance() { static SceneManager instance; return instance; }
 
 	void ChangeScene(SceneType _newScene);

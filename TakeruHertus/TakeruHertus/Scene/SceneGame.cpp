@@ -52,6 +52,6 @@ void SceneGame::DebugDraw()
 {
 #ifdef _DEBUG
 	DrawString(0, 20, "GameScene", 0xffffff, 16);
-
+	debugWindow.UpdateDebugInfo(5, "gameScene");
 #endif // _DEBUG
 }

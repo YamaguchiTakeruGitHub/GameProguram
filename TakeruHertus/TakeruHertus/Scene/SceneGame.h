@@ -3,6 +3,7 @@
 #include "SceneGameCommon.h"
 #include "../Object/Ground/Ground.h"
 #include <memory>
+#include "../DebugWindow/DebugWindow.h"
 
 class SceneGame : public SceneBase
 {
@@ -14,9 +15,10 @@ public:
 	void Update();
 	void Draw();
 	void Final();
+	void DebugDraw();
 
 private:
-	void DebugDraw();
+	DebugWindow debugWindow;
 
 	std::shared_ptr<Player> m_player;
 	std::shared_ptr<Camera> m_camera;

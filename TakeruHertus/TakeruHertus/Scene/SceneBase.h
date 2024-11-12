@@ -12,6 +12,7 @@ public:
 	virtual void Update() = 0;
 	virtual void Draw() = 0;
 	virtual void Final() = 0;
+	virtual void DebugDraw() = 0;
 
 protected:
 	std::shared_ptr<InputDeviceManager> m_Idm;
