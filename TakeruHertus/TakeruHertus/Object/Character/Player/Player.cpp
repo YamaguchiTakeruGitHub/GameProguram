@@ -1,14 +1,22 @@
 #include "Player.h"
-
+#include <string>
 
 Player::Player()
-	: m_position	(VGet(0.0f, 100.0f, 0.0f))
-	, m_direction	(VGet(0.0f, 0.0f, 0.0f))
-	, m_velocity	(VGet(0.0f, 0.0f, 0.0f))
+	: Collidable(Collidable::Priority::Low , GameObjectTag::Player, ColliderData::Kind::Sphere)
+	, m_position(m_righdbody.GetPosition())
+	, m_direction	(m_righdbody.GetDireciton())
+	, m_velocity	(m_righdbody.GetVelocity())
+	, m_radius		(5.0f)
+
+	
+	
+	//, m_position	(VGet(0.0f, 20.0f, 0.0f))
+	//, m_direction	(VGet(0.0f, 0.0f, 0.0f))
+	//, m_velocity	(VGet(0.0f, 0.0f, 0.0f))
+	//, m_radius		(5.0f)
 	, m_frame		()
 	, m_modelHandle (MV1LoadModel("../Asset/3D/Character/Player/Player.mv1"))
 	, m_scale		(VGet(0.1f, 0.1f, 0.1f))
-	, m_radius		(5.0f)
 	, m_start		(VAdd(m_position, VGet(0.0f, 10.0f, 0.0f)))
 	, m_end			(VSub(m_position, VGet(0.0f, 10.0f, 0.0f)))
 	, isMove		(false)
@@ -21,6 +29,9 @@ Player::Player()
 	, rotationY(0.0f)
 	
 {
+	auto sphereColliderData = std::dynamic_pointer_cast<ColliderDataSphere3D>(m_colliderData);
+	sphereColliderData->radius = 50.0f;
+
 	//m_csvLib = std::make_shared<CSVLib>();
 	m_Idm = std::make_shared<InputDeviceManager>();
 	m_camera = std::make_shared<Camera>();
@@ -42,6 +53,7 @@ Player::Player()
 
 Player::~Player()
 {
+
 	MV1DeleteModel(m_modelHandle);
 }
 
@@ -70,18 +82,31 @@ Player::~Player()
 //
 //}
 
-void Player::Init()
+void Player::Init(std::shared_ptr<Physics> _physics)
 {
 	m_Idm.get()->Init();
+
+	Collidable::Init(_physics);
+	m_righdbody.Init(false);
+	m_position = m_righdbody.GetPosition();
+	m_direction = m_righdbody.GetDireciton();
+	m_velocity = m_righdbody.GetVelocity();;
+
 
 	isMove = false;
 	speed = 2.0f;
 	m_angle = 0.0f;
 	tempMoveVector = VGet(0.0f, 0.0f, 0.0f);
 
-	m_position = VGet(0.0f, 100.0f, 0.0f);
+	/*m_position = VGet(0.0f, 20.0f, 0.0f);
 	m_direction = VGet(0.0f, 0.0f, 0.0f);
-	m_velocity = VGet(0.0f, 0.0f, 0.0f);
+	m_velocity = VGet(0.0f, 0.0f, 0.0f);*/
+	
+	
+	
+
+
+
 
 	m_modelHandle = MV1LoadModel("../Asset/3D/Character/Player/Player.mv1");
 	m_scale = VGet(0.1f, 0.1f, 0.1f);
@@ -111,9 +136,16 @@ void Player::Init()
 	//loadData("../GameData/PlayerData.csv");
 }
 
-void Player::Update(float _cHAngle, float  _cVAngle, float _SinParam, float _CosParam)
+void Player::Update(std::shared_ptr<Physics> _physics, float _cHAngle, float  _cVAngle, float _SinParam, float _CosParam)
 {
 	m_Idm.get()->Update();
+
+	auto sphereColliderData = std::dynamic_pointer_cast<ColliderDataSphere3D>(m_colliderData);
+	VECTOR start = m_righdbody.GetPosition();
+	VECTOR end = VAdd(start, VGet(0, -sphereColliderData->radius, 0));
+	auto  hitObjects = _physics->IsCollideLine(start, end);
+	
+
 
 	m_direction = VGet(0.0f, 0.0f, 0.0f);
 	m_velocity = VGet(0.0f, 0.0f, 0.0f);
@@ -180,12 +212,7 @@ void Player::Update(float _cHAngle, float  _cVAngle, float _SinParam, float _Cos
 
 	targetPos = VAdd(m_position, VScale(targetDirection, 20.0f));
 
-
-
-	if (m_direction.x > 0.0f ||
-		m_direction.z > 0.0f ||
-		m_direction.x < 0.0f ||
-		m_direction.z < 0.0f)
+	if (VSquareSize(m_direction) > 0)
 	{
 		m_direction = VNorm(m_direction);
 	}
@@ -193,7 +220,11 @@ void Player::Update(float _cHAngle, float  _cVAngle, float _SinParam, float _Cos
 
 	if (isMove == true)
 	{
-		m_velocity = VGet(m_direction.x * speed, 0.0f, m_direction.z * speed);
+		//m_velocity = VGet(m_direction.x * speed, 0.0f, m_direction.z * speed);
+
+		m_righdbody.SetVelocity(VGet(m_direction.x * speed, 0.0f, m_direction.z * speed));
+
+		m_velocity = m_righdbody.GetVelocity();
 
 		_SinParam = sin(_cHAngle / 180.0f * DX_PI_F);
 		_CosParam = cos(_cHAngle / 180.0f * DX_PI_F);
@@ -207,6 +238,9 @@ void Player::Update(float _cHAngle, float  _cVAngle, float _SinParam, float _Cos
 		//m_position = VAdd(m_velocity, m_position);
 	}
 
+	/*VECTOR aimVelocity = VScale(m_direction, speed);
+	VECTOR prevVelocity = m_righdbody.GetVelocity();
+	VECTOR newVelocity = VGet(aimVelocity.x, prevVelocity.y, 0);*/
 
 
 	SetFrame();
@@ -222,9 +256,26 @@ void Player::Draw()
 	DebugDraw();
 }
 
-void Player::Final()
+void Player::Final(std::shared_ptr<Physics> _physics)
 {
 	MV1DeleteModel(m_modelHandle);
+	Collidable::Final(_physics);
+}
+
+void Player::OnCollide(const std::shared_ptr<Collidable>& _colider)
+{
+	std::string message = "プレイヤーが";
+	if (_colider.get()->GetTag() == GameObjectTag::Player)
+	{
+		message += "プレイヤー";
+	}
+	else if (_colider.get()->GetTag() == GameObjectTag::Enemy)
+	{
+		message += "敵";
+	}
+	message += "とあたった\n";
+	printfDx(message.c_str());
+
 }
 
 void Player::SetFrame()

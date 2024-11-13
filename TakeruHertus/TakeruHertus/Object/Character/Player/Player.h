@@ -4,13 +4,17 @@
 #include <string>
 #include "../../../InputDevice/InputDeviceManager.h"
 #include "../../Camera/Camera.h"
+
+#include "../../../PhysicsLib/PhysicsLib.h"
 //#include "../../LibCom/CSVLib/CSVLib.h"
 
+class Collidable;
+class Physics;
 
 /// <summary>
 /// プレイヤークラス
 /// </summary>
-class Player
+class Player : public Collidable
 {
 public:
 	Player();
@@ -19,11 +23,16 @@ public:
 	//void loadData(const std::string& _filename);
 
 
-	void Init();
-	void Update(float _cHAngle, float  _cVAngle, float _SinParam, float _CosParam);
+	void Init(std::shared_ptr<Physics> _physics) override;
+	void Update(std::shared_ptr<Physics> _physics,  float _cHAngle, float  _cVAngle, float _SinParam, float _CosParam);
 	void Draw();
-	void Final();
+	void Final(std::shared_ptr<Physics> _physics);
+
+	void OnCollide(const std::shared_ptr<Collidable>& _colider);
+
 	void SetFrame();
+
+
 
 	void SetPosition(const VECTOR& _position) { this->m_position = _position; }
 	VECTOR GetPosition() const { return  this->m_position; }

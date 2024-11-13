@@ -139,7 +139,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AnimationLib.cpp" />
+    <ClCompile Include="AnimationLib\AnimationLib.cpp" />
+    <ClCompile Include="Object\Character\EnemySmallFish\EnemySmallFish.cpp" />
+    <ClCompile Include="PhysicsLib\DebugDraw\DebugDraw3D.cpp" />
+    <ClCompile Include="PhysicsLib\AABB\ColliderDataAABB3D.cpp" />
+    <ClCompile Include="PhysicsLib\Capsule\ColliderDataCapsule3D.cpp" />
+    <ClCompile Include="PhysicsLib\OBB\ColliderDataOBB3D.cpp" />
+    <ClCompile Include="PhysicsLib\Sphere\ColliderDataSphere3D.cpp" />
+    <ClCompile Include="PhysicsLib\Physics.cpp" />
+    <ClCompile Include="PhysicsLib\Collidable.cpp" />
     <ClCompile Include="CSVLib\CSVLib.cpp" />
     <ClCompile Include="DebugWindow\DebugWindow.cpp" />
     <ClCompile Include="Object\Ground\Ground.cpp" />
@@ -149,6 +157,7 @@
     <ClCompile Include="InputDevice\KeyBoard\KeyBoard.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Object\Character\Player\Player.cpp" />
+    <ClCompile Include="PhysicsLib\Rigidbody.cpp" />
     <ClCompile Include="Scene\SceneClear.cpp" />
     <ClCompile Include="Scene\SceneResult.cpp" />
     <ClCompile Include="Scene\SceneGame.cpp" />
@@ -157,7 +166,16 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AnimationLib.h" />
+    <ClInclude Include="AnimationLib\AnimationLib.h" />
+    <ClInclude Include="Object\Character\EnemySmallFish\EnemySmallFish.h" />
+    <ClInclude Include="PhysicsLib\DebugDraw\DebugDraw3D.h" />
+    <ClInclude Include="PhysicsLib\AABB\ColliderDataAABB3D.h" />
+    <ClInclude Include="PhysicsLib\Capsule\ColliderDataCapsule3D.h" />
+    <ClInclude Include="PhysicsLib\OBB\ColliderDataOBB3D.h" />
+    <ClInclude Include="PhysicsLib\Sphere\ColliderDataSphere3D.h" />
+    <ClInclude Include="PhysicsLib\Physics.h" />
+    <ClInclude Include="PhysicsLib\ColliderData.h" />
+    <ClInclude Include="PhysicsLib\Collidable.h" />
     <ClInclude Include="CSVLib\CSVLib.h" />
     <ClInclude Include="DebugWindow\DebugWindow.h" />
     <ClInclude Include="Object\Ground\Ground.h" />
@@ -166,6 +184,9 @@
     <ClInclude Include="InputDevice\JoyPad\JoyPad.h" />
     <ClInclude Include="InputDevice\KeyBoard\KeyBoard.h" />
     <ClInclude Include="Object\Character\Player\Player.h" />
+    <ClInclude Include="PhysicsLib\GameObjectTag.h" />
+    <ClInclude Include="PhysicsLib\PhysicsLib.h" />
+    <ClInclude Include="PhysicsLib\Rigidbody.h" />
     <ClInclude Include="Scene\SceneClear.h" />
     <ClInclude Include="Scene\SceneGameCommon.h" />
     <ClInclude Include="Scene\SceneResult.h" />

@@ -21,8 +21,9 @@ private:
 	DebugWindow debugWindow;
 
 	std::shared_ptr<Player> m_player;
+	std::shared_ptr<EnemySmallFish> m_enemy1;
 	std::shared_ptr<Camera> m_camera;
 	std::shared_ptr<Ground> m_ground;
-
+	std::shared_ptr<Physics> m_physics;
 };
 
