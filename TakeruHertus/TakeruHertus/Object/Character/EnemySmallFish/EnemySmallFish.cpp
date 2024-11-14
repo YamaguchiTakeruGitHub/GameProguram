@@ -1,7 +1,7 @@
 #include "EnemySmallFish.h"
 
 EnemySmallFish::EnemySmallFish()
-	: Collidable(Collidable::Priority::Static , GameObjectTag::Enemy, ColliderData::Kind::Sphere)
+	: Collidable(Collidable::Priority::High , GameObjectTag::Enemy, ColliderData::Kind::Sphere)
 {
 	auto sphereColliderData = std::dynamic_pointer_cast<ColliderDataSphere3D>(m_colliderData);
 	sphereColliderData->radius = 50.0f;

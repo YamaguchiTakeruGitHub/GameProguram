@@ -11,6 +11,7 @@ public:
 
 	VECTOR start;
 	VECTOR end;
+	float size;
 	float radius;
 };
 

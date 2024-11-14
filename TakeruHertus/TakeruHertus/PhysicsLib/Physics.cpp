@@ -67,7 +67,7 @@ void Physics::Update()
 		{
 			//球体データのポインタ共有
 			std::shared_ptr<ColliderDataSphere3D> sphereData;
-			//参照をしつつ母音他を変換する
+			//参照をしつつポインタを変換する
 			sphereData = std::dynamic_pointer_cast<ColliderDataSphere3D>(item->m_colliderData);
 			//半径を取得
 			float radius = sphereData.get()->radius;
@@ -77,6 +77,30 @@ void Physics::Update()
 			DebugDraw3D::DrawLine3D(pos, nextPos, AimInfoColor);
 			DebugDraw3D::DrawSphere(nextPos, radius, AimInfoColor);
 		}
+		//オブジェクトがカプセルの場合
+		else if (kind == ColliderData::Kind::Capsule)
+		{
+			//カプセルデータをポインタ共有
+			std::shared_ptr<ColliderDataCapsule3D> capsuleData;
+			//参照しつつポインタを変換する
+			capsuleData = std::dynamic_pointer_cast<ColliderDataCapsule3D>(item->m_colliderData);
+			
+			//カプセル頭を取得
+			VECTOR start = capsuleData.get()->start;
+			//カプセルの足元を取得
+			VECTOR end = capsuleData.get()->end;
+			//カプセルの上下の長さを取得
+			float size = capsuleData.get()->size;
+			//半径を取得
+			float radius = capsuleData.get()->radius;
+
+			/*カプセルのデバック表示を行う*/
+			DebugDraw3D::DrawCapsule(pos, start, end, size, radius, BeforFixInfoColor);
+			DebugDraw3D::DrawLine3D(pos, nextPos, AimInfoColor);
+			DebugDraw3D::DrawCapsule(pos, start, end, size, radius, AimInfoColor);
+		}
+
+
 #endif // _DEBUG
 
 		//座標を更新する
@@ -172,6 +196,12 @@ std::vector<Physics::OnCollideInfo> Physics::CheckColide() const
 	return onCollideInfo;
 }
 
+/// <summary>
+/// 指定ラインがオブジェクトとぶつかっているかどうか判定し、ぶつかっているオブジェクトを返す
+/// </summary>
+/// <param name="_start"></param>
+/// <param name="_end"></param>
+/// <returns></returns>
 std::list<std::shared_ptr<Collidable>> Physics::IsCollideLine(const VECTOR& _start, const VECTOR& _end) const
 {
 	std::list<std::shared_ptr<Collidable>> ret;
@@ -187,6 +217,20 @@ std::list<std::shared_ptr<Collidable>> Physics::IsCollideLine(const VECTOR& _sta
 				ret.emplace_back(obj);
 			}
 		}
+		//ラインとカプセル
+		else if (kind == ColliderData::Kind::Capsule)
+		{
+			auto capsuleColliderData = std::dynamic_pointer_cast<ColliderDataCapsule3D>(obj->m_colliderData);
+			float capsuleLength = VSize(VSub(capsuleColliderData->start, capsuleColliderData->end));
+			bool isHit = (Segment_Point_MinLength(_start, _end, obj->m_righdbody.GetPosition()) < capsuleLength + capsuleColliderData->radius);
+			if (isHit)
+			{
+				ret.emplace_back(obj);
+			}
+		}
+
+
+
 	}
 
 	return ret;
@@ -206,6 +250,22 @@ bool Physics::IsCollide(const std::shared_ptr<Collidable> _objA, const std::shar
 		auto objAColliderData = std::dynamic_pointer_cast<ColliderDataSphere3D>(_objA->m_colliderData);
 		auto objBColliderData = std::dynamic_pointer_cast<ColliderDataSphere3D>(_objB->m_colliderData);
 		isHit = (atobLength < objAColliderData->radius + objBColliderData->radius);
+	}
+	//カプセルとカプセル
+	else if (aKind == ColliderData::Kind::Capsule && bKind == ColliderData::Kind::Capsule)
+	{
+		//auto closestPoint1, closestPoint2;
+		auto objAColliderData = std::dynamic_pointer_cast<ColliderDataCapsule3D>(_objA->m_colliderData);
+		auto objBColliderData = std::dynamic_pointer_cast<ColliderDataCapsule3D>(_objB->m_colliderData);
+		
+		auto objAStart = objAColliderData->start;
+		auto objAEnd = objAColliderData->end;
+
+		auto objBStart = objBColliderData->start;
+		auto objBEnd = objBColliderData->end;
+
+
+		isHit = (DistanceBetweenSegments(objAStart, objAEnd, objBStart, objBEnd) < (objAColliderData->radius + objBColliderData->radius));
 	}
 
 	return isHit;
@@ -228,6 +288,11 @@ void Physics::FixNextPosition(std::shared_ptr<Collidable> _primary, std::shared_
 		VECTOR fixedPos = VAdd(_primary->m_nextPos, primaryToNewSecndaryPos);
 		_secondary->m_nextPos = fixedPos;
 	}
+	else if (primaryKind == ColliderData::Kind::Capsule && secondaryKind == ColliderData::Kind::Capsule)
+	{
+
+	}
+
 	else
 	{
 		assert(0 && "許可されていない当たり判定です");
@@ -256,6 +321,66 @@ void Physics::FixPosition()
 		item->m_righdbody.SetPosition(item->m_nextPos);
 	}
 }
+
+float Physics::DistanceBetweenSegments(const VECTOR _p1, const VECTOR _q1, const VECTOR _p2, const VECTOR _q2) const
+{
+	VECTOR d1 = VSub(_q1, _p1);
+	VECTOR d2 = VSub(_q2, _p2);
+	VECTOR r = VSub(_p1, _p2);
+
+	float a = VDot(d1, d1);
+	float e = VDot(d2, d2);
+	float f = VDot(d2, r);
+
+	float s, t;
+	float c = VDot(d1, r);
+	float b = VDot(d1, d2);
+	
+	float denom = a * e - b * b;
+
+	if (denom != 0.0f)
+	{
+		s = (b * f - c * e) / denom;
+		s = Clamp(s, 0.0f, 1.0f);
+	}
+	else
+	{
+		s = 0.0f;
+	}
+
+	t = (b * s + f) / e;
+	t = Clamp(t, 0.0f, 1.0f);
+	
+	s = (b * t - c) / a;
+	s = Clamp(s, 0.0f, 1.0f);
+	
+	VECTOR closePoint1 = VAdd(_p1, VScale(d1, s));
+	VECTOR closePoint2 = VAdd(_p2, VScale(d2, t));
+	VECTOR diff = VSub(closePoint1, closePoint2);
+
+	return VSize(diff);
+}
+
+//void Physics::ResolveCapsuleCollision(VECTOR _capsuleStartPos1, VECTOR _capsuleEndPos1, VECTOR _capsuleStartPos2, VECTOR _capsuleEndPos2, float _r1, float _r2)
+//{
+//	VECTOR closestPoint1, closestPoint2;
+//	float distance = DistanceBetweenSegments(_capsuleEndPos1, _capsuleEndPos1, _capsuleStartPos2, _capsuleEndPos2, closestPoint1, closestPoint2);
+//	
+//	float overlap = _r1 + _r2 - distance;
+//
+//	if (overlap <= 0.0f)
+//	{
+//		return;
+//	}
+//
+//	VECTOR pushDir = VNorm(VSub(closestPoint1, closestPoint2));
+//
+//	VECTOR pushVector = VScale(pushDir, overlap / 2.0f);
+//
+//	
+//
+//
+//}
 
 void Physics::OnCollideInfo::OnCollide()
 {

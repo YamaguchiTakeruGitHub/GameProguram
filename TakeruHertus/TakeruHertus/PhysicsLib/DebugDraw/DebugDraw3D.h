@@ -28,6 +28,20 @@ public:
 	/// <param name="isWire">：ワイヤー表示をするか否か</param>
 	static void DrawSphere(const VECTOR& _center, float _radius, int _color, float _alpha = 1.0f, bool _isWire = true);
 
+	/// <summary>
+	/// カプセルのデバック表示
+	/// </summary>
+	/// <param name="_center">：ポジション</param>
+	/// <param name="_start">：カプセルの頭</param>
+	/// <param name="_end">：カプセルの足元</param>
+	/// <param name="_size">：カプセルの上下の長さ</param>
+	/// <param name="_radius">：カプセルの半径</param>
+	/// <param name="_color">：色</param>
+	/// <param name="_alpha">：透明度</param>
+	/// <param name="_isWire">：ワイヤーを表示するか否か</param>
+	static void DrawCapsule(const VECTOR& _center, const VECTOR& _start, const VECTOR& _end, const float _size, float _radius, int _color, float _alpha = 1.0f, bool _isWire = true);
+
+
 private:
 
 	struct Line3DInfo
@@ -46,7 +60,19 @@ private:
 		bool isWire;
 	};
 
-	
+	struct CapsuleInfo
+	{
+		VECTOR center;
+		VECTOR start;
+		VECTOR end;
+		float size;
+		float radius;
+		int color;
+		float alpha;
+		bool isWire;
+	};
+
+	static std::vector<CapsuleInfo> capsuleInfo;
 	static std::vector<SphereInfo> sphereInfo;
 	static std::vector<Line3DInfo> line3DInfo;
 

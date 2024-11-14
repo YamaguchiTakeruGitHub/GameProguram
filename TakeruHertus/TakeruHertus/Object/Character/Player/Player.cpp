@@ -2,13 +2,15 @@
 #include <string>
 
 Player::Player()
-	: Collidable(Collidable::Priority::Low , GameObjectTag::Player, ColliderData::Kind::Sphere)
+	: Collidable(Collidable::Priority::Static, GameObjectTag::Player, ColliderData::Kind::Sphere)
 	, m_position(m_righdbody.GetPosition())
-	, m_direction	(m_righdbody.GetDireciton())
-	, m_velocity	(m_righdbody.GetVelocity())
-	, m_radius		(5.0f)
+	, m_direction(m_righdbody.GetDireciton())
+	, m_velocity(m_righdbody.GetVelocity())
+	, m_radius(5.0f)
 
-	
+
+
+
 	
 	//, m_position	(VGet(0.0f, 20.0f, 0.0f))
 	//, m_direction	(VGet(0.0f, 0.0f, 0.0f))
@@ -28,6 +30,17 @@ Player::Player()
 	, targetPos(VGet(0,0,0))
 	, rotationY(0.0f)
 	
+
+
+	, m_Anim_MoveFrameIndex(-1)
+	, m_Anim_AttachIndex(MV1AttachAnim(m_modelHandle, 4))
+	, m_Anim_PlayTime(0.0f)
+	, m_Anim_TotalTime(0.0f)
+	, m_Anim_NowTime(0.0f)
+	, m_IsRun(false)
+
+	, m_animAttachIndex()
+	, m_attack()
 {
 	auto sphereColliderData = std::dynamic_pointer_cast<ColliderDataSphere3D>(m_colliderData);
 	sphereColliderData->radius = 50.0f;
@@ -49,11 +62,24 @@ Player::Player()
 	m_frame.leftShoulder = MV1GetFramePosition(m_modelHandle, 18);//ç∂å®
 	m_frame.rightKnees = MV1GetFramePosition(m_modelHandle, 94);	//âEïG
 	m_frame.leftKnees = MV1GetFramePosition(m_modelHandle, 87);	//ç∂ïG
+
+	/*m_animAttachIndex.IdelIndex		 = MV1AttachAnim(m_modelHandle, 4);
+	m_animAttachIndex.WalkIndex		 = MV1AttachAnim(m_modelHandle, 10);
+	m_animAttachIndex.RunIndex		 = MV1AttachAnim(m_modelHandle, 8);
+	m_animAttachIndex.RollingIndex	 = MV1AttachAnim(m_modelHandle, 7);
+	m_animAttachIndex.Attack1Index;
+	m_animAttachIndex.Attack2Index;
+	m_animAttachIndex.Attack3Index;
+	m_animAttachIndex.Attack4Index;*/
+
+	m_attack.isAttack = false;
+	m_attack.isAttackNow = false;
+	m_attack.count = 0;
+
 }
 
 Player::~Player()
 {
-
 	MV1DeleteModel(m_modelHandle);
 }
 
@@ -102,8 +128,6 @@ void Player::Init(std::shared_ptr<Physics> _physics)
 	m_direction = VGet(0.0f, 0.0f, 0.0f);
 	m_velocity = VGet(0.0f, 0.0f, 0.0f);*/
 	
-	
-	
 
 
 
@@ -133,7 +157,28 @@ void Player::Init(std::shared_ptr<Physics> _physics)
 	targetPos = VGet(0, 0, 0);
 	rotationY = 0.0f;
 
+
+
+	m_Anim_MoveFrameIndex = 0.0f;
+	m_Anim_AttachIndex = MV1AttachAnim(m_modelHandle, 4);
+	m_Anim_PlayTime = 0.0f;
+	m_Anim_TotalTime = MV1GetAttachAnimTotalTime(m_modelHandle, m_Anim_AttachIndex);
+	m_Anim_NowTime;
 	//loadData("../GameData/PlayerData.csv");
+
+	/*m_animAttachIndex.IdelIndex = MV1AttachAnim(m_modelHandle, 4);
+	m_animAttachIndex.WalkIndex = MV1AttachAnim(m_modelHandle, 10);
+	m_animAttachIndex.RunIndex = MV1AttachAnim(m_modelHandle, 8);
+	m_animAttachIndex.RollingIndex = MV1AttachAnim(m_modelHandle, 7);
+	m_animAttachIndex.Attack1Index;
+	m_animAttachIndex.Attack2Index;
+	m_animAttachIndex.Attack3Index;
+	m_animAttachIndex.Attack4Index;*/
+
+	m_attack.isAttack = false;
+	m_attack.isAttackNow = false;
+	m_attack.count = 0;
+
 }
 
 void Player::Update(std::shared_ptr<Physics> _physics, float _cHAngle, float  _cVAngle, float _SinParam, float _CosParam)
@@ -145,6 +190,9 @@ void Player::Update(std::shared_ptr<Physics> _physics, float _cHAngle, float  _c
 	VECTOR end = VAdd(start, VGet(0, -sphereColliderData->radius, 0));
 	auto  hitObjects = _physics->IsCollideLine(start, end);
 	
+
+
+
 
 
 	m_direction = VGet(0.0f, 0.0f, 0.0f);
@@ -242,12 +290,100 @@ void Player::Update(std::shared_ptr<Physics> _physics, float _cHAngle, float  _c
 	VECTOR prevVelocity = m_righdbody.GetVelocity();
 	VECTOR newVelocity = VGet(aimVelocity.x, prevVelocity.y, 0);*/
 
+	m_righdbody.SetPosition(m_position);
 
 	SetFrame();
 	MV1SetPosition(m_modelHandle, m_position);
 	MV1SetRotationXYZ(m_modelHandle, VGet(0.0f, m_angle / 180.0f * DX_PI_F, 0.0f));
 	/*MV1SetRotationXYZ(m_modelHandle, VGet(m_angle,m_angle, m_angle));*/
 	MV1SetScale(m_modelHandle, m_scale);
+
+	bool isAnimation = false;
+
+	if (m_Idm->joyPad->isX == true)
+	{
+		m_attack.isAttackNow = true;
+	}
+	if (m_attack.isAttack == true)
+	{
+		speed = 3.0f;
+		
+	}
+	else
+	{
+		speed = 2.0f;
+	}
+
+
+	if (m_IsRun != isMove)
+	{
+		m_IsRun = isMove;
+		
+		MV1DetachAnim(m_modelHandle, m_Anim_AttachIndex);
+
+		if (m_IsRun == true)
+		{
+			isAnimation = true;
+			m_Anim_AttachIndex = MV1AttachAnim(m_modelHandle, 8);
+		}
+		else if(m_IsRun == false)
+		{
+			isAnimation = true;
+			m_Anim_AttachIndex = MV1AttachAnim(m_modelHandle, 4);
+		}
+	
+		m_Anim_TotalTime = MV1GetAttachAnimTotalTime(m_modelHandle, m_Anim_AttachIndex);
+
+		m_Anim_PlayTime = 0.0f;
+		m_attack.isAttackNow = false;
+
+	}
+	else
+	if (m_attack.isAttack != m_attack.isAttackNow)
+	{
+		m_attack.isAttack = m_attack.isAttackNow;
+
+		MV1DetachAnim(m_modelHandle, m_Anim_AttachIndex);
+
+
+		if (m_attack.isAttack == true)
+		{
+			isAnimation = true;
+			m_Anim_AttachIndex = MV1AttachAnim(m_modelHandle, 7);
+		}
+		else
+		if (m_IsRun == true)
+		{
+			isAnimation = true;
+			m_Anim_AttachIndex = MV1AttachAnim(m_modelHandle, 8);
+		}
+		else
+		{
+			isAnimation = true;
+			m_Anim_AttachIndex = MV1AttachAnim(m_modelHandle, 4);
+		}
+	
+
+		m_Anim_TotalTime = MV1GetAttachAnimTotalTime(m_modelHandle, m_Anim_AttachIndex);
+		m_Anim_PlayTime = 0.0f;
+		m_attack.isAttackNow = false;
+	}
+	else
+	{
+		m_Anim_PlayTime += 0.5f;
+
+		if (m_Anim_PlayTime >= m_Anim_TotalTime)
+		{
+			m_Anim_PlayTime -= m_Anim_TotalTime;
+			m_attack.isAttack = false;
+		}
+	}
+
+
+	
+	MV1SetAttachAnimTime(m_modelHandle, m_Anim_AttachIndex, m_Anim_PlayTime);
+
+
 }
 
 void Player::Draw()
@@ -275,7 +411,7 @@ void Player::OnCollide(const std::shared_ptr<Collidable>& _colider)
 	}
 	message += "Ç∆Ç†ÇΩÇ¡ÇΩ\n";
 	printfDx(message.c_str());
-
+	
 }
 
 void Player::SetFrame()

@@ -49,6 +49,34 @@ private:
 	std::shared_ptr<InputDeviceManager> m_Idm;
 	std::shared_ptr<Camera> m_camera;
 
+	struct Attack
+	{
+		bool isAttack;
+		bool isAttackNow;
+		int count;
+
+	}m_attack;
+
+
+	struct AnimationAttachIndex
+	{
+		int IdelIndex;
+		int RunIndex;
+		int WalkIndex;
+		int RollingIndex;
+		int Attack1Index;
+		int Attack2Index;
+		int Attack3Index;
+		int Attack4Index;
+	}m_animAttachIndex;
+
+	/*アニメーション*/
+	int m_Anim_MoveFrameIndex;
+	int m_Anim_AttachIndex;
+	float m_Anim_PlayTime;
+	float m_Anim_TotalTime;
+	float m_Anim_NowTime;
+	bool m_IsRun;
 
 
 

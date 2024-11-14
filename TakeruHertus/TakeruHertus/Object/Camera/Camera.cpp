@@ -12,7 +12,7 @@ Camera::Camera()
     , m_horizontalAngle(0.0f)
     , m_verticalAngle(0.0f)
 
-    , m_Distance(80.0f)
+    , m_Distance(60.0f)
 
     , lerpFactor()
 
@@ -39,7 +39,7 @@ void Camera::Init()
     m_horizontalAngle = 0.0f;
     m_verticalAngle = 0.0f;
 
-    m_Distance = 80.0f;
+    m_Distance = 60.0f;
 
     m_cosParam = std::cos(static_cast<float>(m_horizontalAngle) / 180.0f * DX_PI_F);
     m_sinParam = std::sin(static_cast<float>(m_horizontalAngle) / 180.0f * DX_PI_F);
@@ -89,7 +89,7 @@ void Camera::PlayerContorllCamera(VECTOR _target)
 
     m_LookAt = _target;
 
-    m_LookAt.y = 40.0f;
+    m_LookAt.y = 20.0f;
 
     m_sinParam = sin(m_verticalAngle / 180.0f * DX_PI_F);
     m_cosParam = cos(m_verticalAngle / 180.0f * DX_PI_F);

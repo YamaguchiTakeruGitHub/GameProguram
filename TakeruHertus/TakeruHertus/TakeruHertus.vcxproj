@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="AnimationLib\AnimationLib.cpp" />
+    <ClCompile Include="System\Command\Command.cpp" />
     <ClCompile Include="Object\Character\EnemySmallFish\EnemySmallFish.cpp" />
     <ClCompile Include="PhysicsLib\DebugDraw\DebugDraw3D.cpp" />
     <ClCompile Include="PhysicsLib\AABB\ColliderDataAABB3D.cpp" />
@@ -167,6 +168,8 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AnimationLib\AnimationLib.h" />
+    <ClInclude Include="System\Command\Command.h" />
+    <ClInclude Include="MathLib\MathLib.h" />
     <ClInclude Include="Object\Character\EnemySmallFish\EnemySmallFish.h" />
     <ClInclude Include="PhysicsLib\DebugDraw\DebugDraw3D.h" />
     <ClInclude Include="PhysicsLib\AABB\ColliderDataAABB3D.h" />

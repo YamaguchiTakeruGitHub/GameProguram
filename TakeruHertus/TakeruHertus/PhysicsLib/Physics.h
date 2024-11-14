@@ -4,6 +4,7 @@
 #include <cassert>
 
 #include "PhysicsLib.h"
+#include "../MathLib/MathLib.h"
 
 class Collidable;
 
@@ -61,6 +62,10 @@ private:
 
 	//ˆÊ’u‚ÌŠm’è
 	void FixPosition();
+
+	float DistanceBetweenSegments(const VECTOR p1, const VECTOR q1, const VECTOR p2, const VECTOR q2) const;
+
+	//void ResolveCapsuleCollision(VECTOR _capsuleStartPos1, VECTOR _capsuleEndPos1, VECTOR _capsuleStartPos2, VECTOR _capsuleEndPos2, float _r1, float _r2);
 
 };
 

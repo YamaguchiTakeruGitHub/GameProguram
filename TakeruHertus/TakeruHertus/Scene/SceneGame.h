@@ -25,5 +25,6 @@ private:
 	std::shared_ptr<Camera> m_camera;
 	std::shared_ptr<Ground> m_ground;
 	std::shared_ptr<Physics> m_physics;
+	std::shared_ptr<Command> m_command;
 };
 
