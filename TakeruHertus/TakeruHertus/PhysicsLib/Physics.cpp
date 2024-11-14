@@ -265,7 +265,7 @@ bool Physics::IsCollide(const std::shared_ptr<Collidable> _objA, const std::shar
 		auto objBEnd = objBColliderData->end;
 
 
-		isHit = (DistanceBetweenSegments(objAStart, objAEnd, objBStart, objBEnd) < (objAColliderData->radius + objBColliderData->radius));
+		isHit = (DistanceBetweenSegments(objAStart, objAEnd, objBStart, objBEnd) <= (objAColliderData->radius + objBColliderData->radius));
 	}
 
 	return isHit;

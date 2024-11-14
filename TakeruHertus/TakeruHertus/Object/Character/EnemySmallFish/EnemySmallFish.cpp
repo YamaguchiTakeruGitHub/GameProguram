@@ -2,10 +2,19 @@
 
 EnemySmallFish::EnemySmallFish()
 	: Collidable(Collidable::Priority::High , GameObjectTag::Enemy, ColliderData::Kind::Sphere)
+	, modelHandle(-1)
 {
 	auto sphereColliderData = std::dynamic_pointer_cast<ColliderDataSphere3D>(m_colliderData);
-	sphereColliderData->radius = 50.0f;
+	sphereColliderData->radius = 10.0f;
 }
+//	: Collidable(Collidable::Priority::High, GameObjectTag::Enemy, ColliderData::Kind::Capsule)
+//{
+//	auto capsuleColliderData = std::dynamic_pointer_cast<ColliderDataCapsule3D>(m_colliderData);
+//	capsuleColliderData.get()->size = 10.0f;
+//	capsuleColliderData.get()->start = VAdd(m_righdbody.GetPosition(), VGet(0.0f, capsuleColliderData->size, 0.0f));
+//	capsuleColliderData.get()->end = VSub(m_righdbody.GetPosition(), VGet(0.0f, capsuleColliderData->size, 0.0f));
+//	capsuleColliderData.get()->radius = 10.0f;
+//}
 
 EnemySmallFish::~EnemySmallFish()
 {
@@ -15,7 +24,9 @@ void EnemySmallFish::Init(std::shared_ptr<Physics> _physics)
 {
 	Collidable::Init(_physics);
 	m_righdbody.Init(false);
-	m_righdbody.SetPosition(VGet(0.0f, 20.0f, 30.0f));
+	m_righdbody.SetPosition(VGet(0.0f, 20.0f, 60.0f));
+
+	modelHandle = -1;
 }
 
 void EnemySmallFish::Final(std::shared_ptr<Physics> _physics)
@@ -25,9 +36,6 @@ void EnemySmallFish::Final(std::shared_ptr<Physics> _physics)
 
 void EnemySmallFish::Update(std::shared_ptr<Physics> _physics)
 {
-	auto sphereData = std::dynamic_pointer_cast<ColliderDataSphere3D>(m_colliderData);
-	VECTOR start = m_righdbody.GetPosition();
-	VECTOR END = VAdd(start, VGet(0, -sphereData->radius, 0));
 	
 	// 矢印キーを押していたらプレイヤーを移動させる
 	// 向きを決定する.
@@ -70,14 +78,18 @@ void EnemySmallFish::Draw(std::shared_ptr<Physics> _physics)
 
 void EnemySmallFish::OnCollide(const std::shared_ptr<Collidable>& _colider)
 {
-	std::string message = "プレイヤーが";
-	if (_colider->GetTag() == GameObjectTag::Player)
+	std::string message = "小敵が";
+	if (_colider->GetTag() == GameObjectTag::Enemy)
+	{
+		message += "小敵";
+	}
+	else if (_colider->GetTag() == GameObjectTag::EnemyMIdle)
+	{
+		message += "中敵";
+	}
+	else if (_colider->GetTag() == GameObjectTag::Player)
 	{
 		message += "プレイヤー";
-	}
-	else if (_colider->GetTag() == GameObjectTag::Enemy)
-	{
-		message += "敵";
 	}
 	
 	message += "と当たった！\n";

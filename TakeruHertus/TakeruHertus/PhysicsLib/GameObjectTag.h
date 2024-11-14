@@ -7,6 +7,7 @@ enum class GameObjectTag
 {
 	Player,	//プレイヤー
 	Enemy,	//敵
+	EnemyMIdle,
 	Wall,	//壁
 	Ground,	//地面
 };
