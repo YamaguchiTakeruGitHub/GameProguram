@@ -1,0 +1,4 @@
+ID	Name	PosX	PosY	PosZ
+1	player	0.0	0.0	0.0
+2	enemy	5.0	3.0	2.0
+3	ally	-1.0	2.00	3.5
