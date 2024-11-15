@@ -4,6 +4,7 @@
 #include <mutex>
 #include <string>
 #include <vector>
+#include <EffekseerForDXLib.h>
 
 // デバッグ用のテキストリスト
 std::vector<std::string> debugTexts = { "Initial Debug Info" };
@@ -101,10 +102,25 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     SetGraphMode(1280, 740, 16);
     SetWindowSize(1280, 740);
     ChangeWindowMode(TRUE);
+
+
+    SetUseDirect3DVersion(DX_DIRECT3D_11);
+
     // DxLibの初期化
     if (DxLib_Init() == -1) {
         return -1;
     }
+
+    if (Effekseer_Init(8000) == -1)
+    {
+        DxLib_End();
+        return -1;
+    }
+    SetChangeScreenModeGraphicsSystemResetFlag(false);
+    Effekseer_SetGraphicsDeviceLostCallbackFunctions();
+
+
+
     SetDrawScreen(DX_SCREEN_BACK);
     // シーンマネージャーの初期化
     SceneManager& sceneManager = SceneManager::GetInstance();
@@ -122,6 +138,9 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
         LONGLONG start = GetNowHiPerformanceCount();
         // 描画画面をクリア
         ClearDrawScreen();
+
+        Effekseer_Sync3DSetting();
+
         // シーンの更新と描画
         sceneManager.Update();
         sceneManager.Draw();
@@ -164,6 +183,7 @@ int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine
     }
     // シーンの終了処理とDxLibの終了
     sceneManager.Final();
+    Effkseer_End();
     DxLib_End();
     return 0;
 }

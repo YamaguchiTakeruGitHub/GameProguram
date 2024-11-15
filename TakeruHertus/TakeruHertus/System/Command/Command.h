@@ -3,6 +3,7 @@
 #include <memory>
 #include "../../InputDevice/InputDeviceManager.h"
 
+
 class Command
 {
 public:

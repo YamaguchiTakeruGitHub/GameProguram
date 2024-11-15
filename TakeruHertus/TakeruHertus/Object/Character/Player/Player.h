@@ -4,7 +4,8 @@
 #include <string>
 #include "../../../InputDevice/InputDeviceManager.h"
 #include "../../Camera/Camera.h"
-
+#include "../../../System/Command/Command.h"
+#include "../../../EffectLib/EffectLib.h"
 #include "../../../PhysicsLib/PhysicsLib.h"
 //#include "../../LibCom/CSVLib/CSVLib.h"
 
@@ -48,14 +49,27 @@ private:
 
 	std::shared_ptr<InputDeviceManager> m_Idm;
 	std::shared_ptr<Camera> m_camera;
+	std::shared_ptr<Command> m_command;
+	std::shared_ptr<EffectLib> m_effectLib;
+	std::shared_ptr<EffectLib> m_effectLib2;
+
 
 	struct Attack
 	{
 		bool isAttack;
 		bool isAttackNow;
+		int attackCount;
+		int attackTime;
+	}m_attack;
+
+
+	struct Roring
+	{
+		bool isRoring;
+		bool isRoringNow;
 		int count;
 
-	}m_attack;
+	}m_roring;
 
 
 	struct AnimationAttachIndex
@@ -68,7 +82,7 @@ private:
 		int Attack2Index;
 		int Attack3Index;
 		int Attack4Index;
-	}m_animAttachIndex;
+	}m_anim_AttachIndex;
 
 	/*アニメーション*/
 	int m_Anim_MoveFrameIndex;

@@ -22,9 +22,12 @@ private:
 
 	std::shared_ptr<Player> m_player;
 	std::shared_ptr<EnemySmallFish> m_enemy1;
+	std::shared_ptr<EnemyMidle> m_enemy2;
 	std::shared_ptr<Camera> m_camera;
 	std::shared_ptr<Ground> m_ground;
 	std::shared_ptr<Physics> m_physics;
-	std::shared_ptr<Command> m_command;
+	std::shared_ptr<SkyDome> m_skyDome;
+	std::shared_ptr<LightManager> m_light;
+	//std::shared_ptr<Command> m_command;
 };
 

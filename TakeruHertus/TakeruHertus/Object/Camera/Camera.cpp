@@ -1,5 +1,6 @@
 #include "Camera.h"
 #include <cmath>
+#include <EffekseerForDXLib.h>
 
 // ƒJƒƒ‰‚Ì‰ñ“]‘¬“x
 #define CAMERA_ANGLE_SPEED			1.5f
@@ -84,7 +85,7 @@ void Camera::PlayerContorllCamera(VECTOR _target)
     if (rightStickY != 0 && rightStickY >= -0.030519f && rightStickY <= 0.0f)
     {
         m_verticalAngle -= m_speed;
-        if (m_verticalAngle <= 0.0f) m_verticalAngle = 0.0f;
+        if (m_verticalAngle <= -20.0f) m_verticalAngle = -20.0f;
     }
 
     m_LookAt = _target;
@@ -108,6 +109,8 @@ void Camera::PlayerContorllCamera(VECTOR _target)
     m_previous = m_position;*/
 
     m_position = VAdd(tempPosition2, m_LookAt);
+
+    Effekseer_Sync3DSetting();
 
     SetCameraPositionAndTarget_UpVecY(m_position, m_LookAt);
 

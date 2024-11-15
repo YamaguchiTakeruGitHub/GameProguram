@@ -4,3 +4,6 @@
 #include "../PhysicsLib/PhysicsLib.h"
 #include "../Object/Character/EnemySmallFish/EnemySmallFish.h"
 #include "../System/Command/Command.h"
+#include "../Object/Character/EnemyMidle/EnemyMidle.h"
+#include "../Object/Sky/SkyDome.h"
+#include "../Object/Light/LightManager.h"
