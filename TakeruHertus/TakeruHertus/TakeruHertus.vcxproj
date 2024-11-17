@@ -139,7 +139,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="AnimationLib\AnimationLib.cpp" />
+    <ClCompile Include="AnimationLib\Animation.cpp" />
+    <ClCompile Include="AnimationLib\AnimationManager.cpp" />
     <ClCompile Include="EffectLib\EffectLib.cpp" />
     <ClCompile Include="Object\Light\LightManager.cpp" />
     <ClCompile Include="Object\Character\EnemyMidle\EnemyMidle.cpp" />
@@ -171,7 +172,8 @@
     <ClCompile Include="Scene\SceneManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="AnimationLib\AnimationLib.h" />
+    <ClInclude Include="AnimationLib\Animation.h" />
+    <ClInclude Include="AnimationLib\AnimationManager.h" />
     <ClInclude Include="EffectLib\EffectLib.h" />
     <ClInclude Include="Object\Light\LightManager.h" />
     <ClInclude Include="Object\Character\EnemyMidle\EnemyMidle.h" />

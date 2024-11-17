@@ -4,6 +4,7 @@ EnemySmallFish::EnemySmallFish()
 	: Collidable(Collidable::Priority::High , GameObjectTag::Enemy, ColliderData::Kind::Sphere)
 	, modelHandle(-1)
 	, scale(VGet(0,0,0))
+	, helth()
 {
 	auto sphereColliderData = std::dynamic_pointer_cast<ColliderDataSphere3D>(m_colliderData);
 	sphereColliderData->radius = 50.0f;

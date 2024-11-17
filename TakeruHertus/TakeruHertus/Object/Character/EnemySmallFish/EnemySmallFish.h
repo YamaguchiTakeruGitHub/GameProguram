@@ -19,6 +19,6 @@ public:
 private:
 	int modelHandle;
 	VECTOR scale;
-
+	int helth;
 };
 

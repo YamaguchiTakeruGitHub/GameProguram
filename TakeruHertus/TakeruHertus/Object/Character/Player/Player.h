@@ -40,10 +40,7 @@ public:
 
 private:
 	float NormalizeAngle(float _angle);
-	float targetRotationY;
-	VECTOR targetDirection;
-	VECTOR targetPos;
-	float rotationY;
+	
 
 	void DebugDraw();
 

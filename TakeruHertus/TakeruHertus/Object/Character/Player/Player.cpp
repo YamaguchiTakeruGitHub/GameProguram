@@ -22,10 +22,7 @@ Player::Player()
 	, speed			(2.0f)
 	, m_angle		(0.0f)
 	, tempMoveVector(VGet(0.0f, 0.0f, 0.0f))
-	, targetRotationY(0.0f)
-	, targetDirection(VGet(0,0,0))
-	, targetPos(VGet(0,0,0))
-	, rotationY(0.0f)
+	
 	
 
 
@@ -169,10 +166,7 @@ void Player::Init(std::shared_ptr<Physics> _physics)
 	m_frame.rightKnees = MV1GetFramePosition(m_modelHandle, 94);	//âEïG
 	m_frame.leftKnees = MV1GetFramePosition(m_modelHandle, 87);	//ç∂ïG
 
-	targetRotationY = 0.0f;
-	targetDirection = VGet(0, 0, 0);
-	targetPos = VGet(0, 0, 0);
-	rotationY = 0.0f;
+
 
 
 
@@ -228,21 +222,18 @@ void Player::Update(std::shared_ptr<Physics> _physics, float _cHAngle, float  _c
 
 	if (Left)
 	{
-		targetRotationY = DX_PI_F / 2;
 		m_angle = 90.0f - _cHAngle;
 		m_direction.x = 1.0f;
 		isMove = true;
 	}
 	if (Right)
 	{
-		targetRotationY = DX_PI_F * 3 / 2 ;
 		m_angle = -90.0f - _cHAngle;
 		m_direction.x = -1.0f;
 		isMove = true;
 	}
 	if (Up)
 	{
-		targetRotationY = 0.0f;
 		m_angle = 0.0f - _cHAngle;
 	
 		m_direction.z = 1.0f;
@@ -250,8 +241,6 @@ void Player::Update(std::shared_ptr<Physics> _physics, float _cHAngle, float  _c
 	}
 	if (Down)
 	{
-		targetRotationY = DX_PI_F;
-
 		m_angle = 180.0f - _cHAngle;
 
 		m_direction.z = -1.0f;
@@ -268,16 +257,7 @@ void Player::Update(std::shared_ptr<Physics> _physics, float _cHAngle, float  _c
 	}
 
 
-	float angleDifference = NormalizeAngle(targetRotationY - rotationY);
 
-	float rotateionSpeed = 0.07f;
-	rotationY += angleDifference * rotateionSpeed;
-
-	targetDirection.x = sin(rotationY);
-	targetDirection.z = cos(rotationY);
-
-	//targetPos = VAdd(m_position, VScale(targetDirection, 20.0f));
-	targetPos = VAdd(m_position, VScale(targetDirection, 20.0f));
 
 	if (VSquareSize(m_direction) > 0)
 	{
@@ -582,7 +562,7 @@ float Player::NormalizeAngle(float _angle)
 void Player::DebugDraw()
 {
 #ifdef _DEBUG
-	DrawLine3D(targetPos, m_position, 0x00ff00);
+	//DrawLine3D(targetPos, m_position, 0x00ff00);
 
 	DrawCapsule3D(m_start, m_end, m_radius, 5, 0xffffff, 0xffffff, false);
 

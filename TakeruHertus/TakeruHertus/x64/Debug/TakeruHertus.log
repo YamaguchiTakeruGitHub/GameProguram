@@ -1,3 +1,2 @@
-﻿  EnemySmallFish.cpp
-C:\Users\fko2347069\Takeru\GameProguram\GameProguram\TakeruHertus\プロジェクトに追加すべきファイル_VC用\DxLib.h(3344,1): warning C4819: ファイルは、現在のコード ページ (932) で表示できない文字を含んでいます。データの損失を防ぐために、ファイルを Unicode 形式で保存してください。
-  TakeruHertus.vcxproj -> C:\Users\fko2347069\Takeru\GameProguram\GameProguram\TakeruHertus\x64\Debug\TakeruHertus.exe
+﻿  CSVLib.cpp
+  TakeruHertus.vcxproj -> C:\Users\yamag\OneDrive\Desktop\GameProguram\GameProguram\TakeruHertus\x64\Debug\TakeruHertus.exe
