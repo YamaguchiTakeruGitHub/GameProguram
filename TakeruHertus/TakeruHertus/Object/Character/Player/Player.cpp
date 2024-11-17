@@ -247,6 +247,12 @@ void Player::Update(std::shared_ptr<Physics> _physics, float _cHAngle, float  _c
 		isMove = true;
 	}
 
+
+
+
+
+
+
 	if (m_position.y <= 20.0f)
 	{
 		m_position.y = 20.0f;
